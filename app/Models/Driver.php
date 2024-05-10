@@ -25,13 +25,13 @@ class Driver extends Model
 
     public function dataForExport(): array
     {
-        $drivers = Driver::withSum('trips', 'seconds')->get();
+        $drivers = Driver::withSum('trips', 'minutes')->get();
         $data[] = ['driver_id', 'total_minutes_with_passenger'];
 
         foreach ($drivers as $driver) {
             $data[] = [
                 $driver->getAttribute('id'),
-                $driver->getAttribute('trips_sum_seconds') / 60,
+                $driver->getAttribute('trips_sum_minutes'),
             ];
         }
 

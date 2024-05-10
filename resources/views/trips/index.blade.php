@@ -32,7 +32,7 @@
                 <td><a href="{{route('drivers.show', $trip->driver_id)}}">{{$trip->driver_id}}</a></td>
                 <td>{{$trip->pickup}}</td>
                 <td>{{$trip->dropoff}}</td>
-                <td>{{$trip->seconds/60}}</td>
+                <td>{{$trip->minutes}}</td>
             </tr>
         @endforeach
         </tbody>

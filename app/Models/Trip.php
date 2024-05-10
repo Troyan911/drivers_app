@@ -17,7 +17,7 @@ class Trip extends Model
         'driver_id',
         'pickup',
         'dropoff',
-        'seconds',
+        'minutes',
         'created_at',
         'updated_at',
     ];
@@ -34,14 +34,13 @@ class Trip extends Model
         try {
             $this->truncateTable();
             foreach ($records as $record) {
-                $seconds = strtotime($record['dropoff']) - strtotime($record['pickup']);
-                $record['seconds'] = $seconds;
+                $minutes = (strtotime($record['dropoff']) - strtotime($record['pickup']))/60;
+                $record['minutes'] = round($minutes, 2);
                 $this::create($record);
             }
         } catch (Exception $e) {
             echo $e->getMessage();
             exit;
-            //            redirect()->route('error', $e);
         }
     }
 

@@ -9,11 +9,11 @@ class DriverController extends Controller
 {
     public function index()
     {
-        $drivers = Driver::withSum('trips', 'seconds')->get();
+        $drivers = Driver::withSum('trips', 'minutes')->get();
 
         $data = [];
         foreach ($drivers as $driver) {
-            $data[$driver->getAttribute('id')] = $driver->getAttribute('trips_sum_seconds') / 60;
+            $data[$driver->getAttribute('id')] = $driver->getAttribute('trips_sum_minutes');
         }
 
         return view('drivers.index', compact('data'));

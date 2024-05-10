@@ -32,7 +32,7 @@
                 <td>{{$trip->driver_id}}</td>
                 <td>{{$trip->pickup}}</td>
                 <td>{{$trip->dropoff}}</td>
-                <td>{{(strtotime($trip->dropoff) - strtotime($trip->pickup))/60}}</td>
+                <td>{{round((strtotime($trip->dropoff) - strtotime($trip->pickup))/60, 2)}}</td>
             </tr>
         @endforeach
         </tbody>

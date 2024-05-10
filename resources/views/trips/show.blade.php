@@ -31,7 +31,7 @@
                 <td>{{$trip->driver_id}}</td>
                 <td>{{$trip->pickup}}</td>
                 <td>{{$trip->dropoff}}</td>
-                <td>{{$trip->seconds/60}}</td>
+                <td>{{$trip->minutes}}</td>
             </tr>
         </tbody>
     </table>

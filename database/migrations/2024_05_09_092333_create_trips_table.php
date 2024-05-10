@@ -16,9 +16,7 @@ return new class extends Migration
             $table->bigInteger('driver_id', unsigned: true);
             $table->string('pickup');
             $table->string('dropoff');
-            $table->integer('seconds');
-
-            //            $table->timestamps();
+            $table->float('minutes');
         });
     }
 
