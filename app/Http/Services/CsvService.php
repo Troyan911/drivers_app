@@ -8,14 +8,25 @@ use App\Models\Trip;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Reader;
 use League\Csv\Writer;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class CsvService
+class CsvService implements CsvServiceContract
 {
+    /**
+     * @param  Trip  $modelTrip
+     * @param  Driver  $modelDriver
+     */
+    private $filePath = 'drivers.csv';
+
     public function __construct(public Trip $modelTrip, public Driver $modelDriver)
     {
     }
 
-    public function parseCsv(CsvImportRequest $request)
+    /**
+     * @throws \League\Csv\Exception
+     * @throws \League\Csv\UnavailableStream
+     */
+    public function parseCsv(CsvImportRequest $request): void
     {
         $file = $request->file('csv_file');
         $csv = Reader::createFromPath($file->getPathname(), 'r');
@@ -29,14 +40,24 @@ class CsvService
         $this->modelDriver->createDrivers($drivers);
     }
 
-    public function exportCsv($data)
+    /**
+     * @throws \League\Csv\CannotInsertRecord
+     * @throws \League\Csv\Exception
+     */
+    public function exportCsv($data): StreamedResponse
     {
+        $this->removeCsv();
+
         $csv = Writer::createFromString('');
         $csv->insertAll($data);
 
-        $filePath = 'drivers.csv';
-        Storage::put($filePath, $csv->toString());
+        Storage::put($this->filePath, $csv->toString());
 
-        return Storage::download($filePath);
+        return Storage::download($this->filePath);
+    }
+
+    public function removeCsv(): void
+    {
+        Storage::delete($this->filePath);
     }
 }

@@ -17,7 +17,7 @@ class DriverFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id' => fake()->unique()->randomNumber(5),
         ];
     }
 }

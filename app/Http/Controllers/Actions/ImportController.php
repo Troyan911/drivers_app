@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Actions;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CsvImportRequest;
-use App\Http\Services\CsvService;
-use App\Models\Trip;
+use App\Http\Services\CsvServiceContract;
 
 class ImportController extends Controller
 {
-    public function __invoke(CsvImportRequest $request, CsvService $service, Trip $trip)
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function __invoke(CsvImportRequest $request, CsvServiceContract $service)
     {
-        $service->parseCsv($request, $trip);
+        $service->parseCsv($request);
 
         return redirect()->route('trips.index');
     }

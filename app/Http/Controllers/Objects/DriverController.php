@@ -16,13 +16,13 @@ class DriverController extends Controller
             $data[$driver->getAttribute('id')] = $driver->getAttribute('trips_sum_seconds') / 60;
         }
 
-        return view('driver.index', compact('data'));
+        return view('drivers.index', compact('data'));
     }
 
     public function show(Driver $driver)
     {
         $trips = $driver->trips;
 
-        return view('driver.show', compact('driver', 'trips'));
+        return view('drivers.show', compact('driver', 'trips'));
     }
 }

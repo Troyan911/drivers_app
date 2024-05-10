@@ -29,10 +29,10 @@ class Trip extends Model
         return $this->belongsTo(Driver::class);
     }
 
-    public function createTrips($records)
+    public function createTrips($records): void
     {
         try {
-            DB::table($this->getTable())->truncate();
+            $this->truncateTable();
             foreach ($records as $record) {
                 $seconds = strtotime($record['dropoff']) - strtotime($record['pickup']);
                 $record['seconds'] = $seconds;
@@ -41,7 +41,12 @@ class Trip extends Model
         } catch (Exception $e) {
             echo $e->getMessage();
             exit;
-//            redirect()->route('error', $e);
+            //            redirect()->route('error', $e);
         }
+    }
+
+    public function truncateTable(): void
+    {
+        DB::table($this->getTable())->truncate();
     }
 }

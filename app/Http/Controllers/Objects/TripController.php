@@ -11,12 +11,12 @@ class TripController extends Controller
     {
         $trips = Trip::all();
 
-        return view('trip.index', compact('trips'));
+        return view('trips.index', compact('trips'));
     }
 
     public function show(Trip $trip)
     {
-        return view('trip.show', compact('trip'));
+        return view('trips.show', compact('trip'));
     }
 
     public function time()
