@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Driver extends Model
 {
@@ -34,5 +35,13 @@ class Driver extends Model
         }
 
         return $data;
+    }
+
+    public function createDrivers($drivers)
+    {
+        DB::table((new Driver)->getTable())->truncate();
+        foreach ($drivers as $driver) {
+            (new Driver())->create(['id' => $driver]);
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 
 class Trip extends Model
 {
@@ -25,5 +26,15 @@ class Trip extends Model
     public function driver(): BelongsTo
     {
         return $this->belongsTo(Driver::class);
+    }
+
+    public function createTrips($records)
+    {
+        DB::table($this->getTable())->truncate();
+        foreach ($records as $record) {
+            $seconds = strtotime($record['dropoff']) - strtotime($record['pickup']);
+            $record['seconds'] = $seconds;
+            $this::create($record);
+        }
     }
 }
