@@ -18,11 +18,4 @@ class TripController extends Controller
     {
         return view('trips.show', compact('trip'));
     }
-
-    public function time()
-    {
-        $driversWithTime = Trip::withSum('transactions', 'amount')->get();
-
-        return view('trip.show', compact('trip'));
-    }
 }
