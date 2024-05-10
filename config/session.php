@@ -11,7 +11,7 @@ return [
     |
     | This option controls the default session "driver" that will be used on
     | requests. By default, we will use the lightweight native driver but
-    | you may specify any of the other wonderful drivers provided here.
+    | you may specify any of the other wonderful driver provided here.
     |
     | Supported: "file", "cookie", "database", "apc",
     |            "memcached", "redis", "dynamodb", "array"
@@ -66,7 +66,7 @@ return [
     | Session Database Connection
     |--------------------------------------------------------------------------
     |
-    | When using the "database" or "redis" session drivers, you may specify a
+    | When using the "database" or "redis" session driver, you may specify a
     | connection that should be used to manage these sessions. This should
     | correspond to a connection in your database configuration options.
     |
@@ -107,7 +107,7 @@ return [
     | Session Sweeping Lottery
     |--------------------------------------------------------------------------
     |
-    | Some session drivers must manually sweep their storage location to get
+    | Some session driver must manually sweep their storage location to get
     | rid of old sessions from storage. Here are the chances that it will
     | happen on a given request. By default, the odds are 2 out of 100.
     |
