@@ -9,4 +9,4 @@ For view uploaded data use /trips and /drivers uri
 
 ### Export data with driver's time
 
-For export use /download uri
+For export use /export uri

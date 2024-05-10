@@ -21,4 +21,4 @@ Route::resource('trips', \App\Http\Controllers\Objects\TripController::class)->o
 Route::resource('drivers', \App\Http\Controllers\Objects\DriverController::class)->only(['index', 'show']);
 
 Route::post('/import-csv', \App\Http\Controllers\Actions\ImportController::class)->name('import.csv');
-Route::get('/download', \App\Http\Controllers\Actions\ExportController::class)->name('export.csv');
+Route::get('/export', \App\Http\Controllers\Actions\ExportController::class)->name('export.csv');

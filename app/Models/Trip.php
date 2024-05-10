@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,11 +31,17 @@ class Trip extends Model
 
     public function createTrips($records)
     {
-        DB::table($this->getTable())->truncate();
-        foreach ($records as $record) {
-            $seconds = strtotime($record['dropoff']) - strtotime($record['pickup']);
-            $record['seconds'] = $seconds;
-            $this::create($record);
+        try {
+            DB::table($this->getTable())->truncate();
+            foreach ($records as $record) {
+                $seconds = strtotime($record['dropoff']) - strtotime($record['pickup']);
+                $record['seconds'] = $seconds;
+                $this::create($record);
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+//            redirect()->route('error', $e);
         }
     }
 }
