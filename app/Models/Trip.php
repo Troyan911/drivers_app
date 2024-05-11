@@ -34,7 +34,7 @@ class Trip extends Model
         try {
             $this->truncateTable();
             foreach ($records as $record) {
-                $minutes = (strtotime($record['dropoff']) - strtotime($record['pickup']))/60;
+                $minutes = (strtotime($record['dropoff']) - strtotime($record['pickup'])) / 60;
                 $record['minutes'] = round($minutes, 2);
                 $this::create($record);
             }
