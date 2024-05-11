@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Trip>
+ * @extends Factory<Trip>
  */
 class TripFactory extends Factory
 {
@@ -18,7 +19,7 @@ class TripFactory extends Factory
     {
         $pickup = fake()->dateTimeBetween('-100 minutes', '-80 minutes')->format('Y-m-d H:i:s');
         $dropoff = fake()->dateTimeBetween('-79 minutes', '-50 minutes')->format('Y-m-d H:i:s');
-        $minutes = round((strtotime($dropoff) - strtotime($pickup))/60, 2);
+        $minutes = round((strtotime($dropoff) - strtotime($pickup)) / 60, 2);
 
         return [
             'id' => fake()->unique()->randomNumber(5),
