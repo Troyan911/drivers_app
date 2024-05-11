@@ -51,7 +51,7 @@ class Driver extends Model
         try {
             $this->truncateTable();
             foreach ($drivers as $driver) {
-                (new Driver())->create(['id' => $driver]);
+                $this::create(['id' => $driver]);
             }
         } catch (Exception $e) {
             echo $e->getMessage();

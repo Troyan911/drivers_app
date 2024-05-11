@@ -68,7 +68,6 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
-        // Інші Middleware...
         'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 }
