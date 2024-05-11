@@ -14,7 +14,6 @@ class RoutesTest extends TestCase
     public static function routes(): array
     {
         return [
-            ['/drivers'],
             ['/trips'],
             ['/'],
             ['/export'],

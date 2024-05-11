@@ -5,8 +5,12 @@ namespace App\Http\Services;
 use App\Http\Requests\CsvImportRequest;
 use App\Models\Driver;
 use App\Models\Trip;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use League\Csv\CannotInsertRecord;
+use League\Csv\Exception;
 use League\Csv\Reader;
+use League\Csv\UnavailableStream;
 use League\Csv\Writer;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -23,8 +27,8 @@ class CsvService implements CsvServiceContract
     }
 
     /**
-     * @throws \League\Csv\Exception
-     * @throws \League\Csv\UnavailableStream
+     * @throws Exception
+     * @throws UnavailableStream
      */
     public function parseCsv(CsvImportRequest $request): void
     {
@@ -34,21 +38,26 @@ class CsvService implements CsvServiceContract
         $records = $csv->getRecords();
 
         $this->modelTrip->createTrips($records);
-        $trips = collect($csv->getRecords());
-
-        $drivers = $trips->pluck(['driver_id'])->unique()->toArray();
-        $this->modelDriver->createDrivers($drivers);
     }
 
     /**
-     * @throws \League\Csv\CannotInsertRecord
-     * @throws \League\Csv\Exception
+     * @throws CannotInsertRecord
+     * @throws Exception
      */
-    public function exportCsv($data): StreamedResponse
+    public function exportCsv(Collection $trips): StreamedResponse
     {
         $this->removeCsv();
-
         $csv = Writer::createFromString('');
+
+        $data[] = ['driver_id', 'total_minutes_with_passenger'];
+
+        foreach ($trips as $trip) {
+            $data[] = [
+                $trip->driver_id,
+                $trip->minutes,
+            ];
+        }
+
         $csv->insertAll($data);
 
         Storage::put($this->filePath, $csv->toString());

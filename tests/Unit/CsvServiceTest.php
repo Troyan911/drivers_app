@@ -27,18 +27,21 @@ class CsvServiceTest extends TestCase
         $this->service->removeCsv();
         $this->assertFalse(Storage::has($this->filePath));
 
-        $data = [
-            ['driver', 'time'],
-            ['111', '11'],
-            ['222', '22'],
-            ['333', '33'],
-        ];
-        $this->service->exportCsv($data);
+        //Convert to collection of stdClass objects
+        $trips = collect(
+            [
+                json_decode(json_encode(['driver_id' => '111', 'minutes' => '11'])),
+                json_decode(json_encode(['driver_id' => '222', 'minutes' => '22'])),
+                json_decode(json_encode(['driver_id' => '333', 'minutes' => '33'])),
+            ]
+        );
+
+        $this->service->exportCsv($trips);
         $content = Storage::get($this->filePath);
 
-        foreach ($data as $row) {
-            $this->assertStringContainsString($row[0], $content);
-            $this->assertStringContainsString($row[1], $content);
+        foreach ($trips as $trip) {
+            $this->assertStringContainsString($trip->driver_id, $content);
+            $this->assertStringContainsString($trip->minutes, $content);
         }
         $this->assertTrue(Storage::has($this->filePath));
         $this->service->removeCsv($this->filePath);

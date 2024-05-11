@@ -5,7 +5,6 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class Trip extends Model
@@ -24,17 +23,12 @@ class Trip extends Model
 
     public $timestamps = false;
 
-    public function driver(): BelongsTo
-    {
-        return $this->belongsTo(Driver::class);
-    }
-
     public function createTrips($records): void
     {
         try {
             $this->truncateTable();
             foreach ($records as $record) {
-                $minutes = (strtotime($record['dropoff']) - strtotime($record['pickup']))/60;
+                $minutes = (strtotime($record['dropoff']) - strtotime($record['pickup'])) / 60;
                 $record['minutes'] = round($minutes, 2);
                 $this::create($record);
             }
@@ -44,7 +38,7 @@ class Trip extends Model
         }
     }
 
-    public function truncateTable(): void
+    private function truncateTable(): void
     {
         DB::table($this->getTable())->truncate();
     }
