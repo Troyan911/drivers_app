@@ -7,6 +7,10 @@ use App\Models\Trip;
 
 class TripController extends Controller
 {
+    public function __construct(private Trip $trip)
+    {
+    }
+
     public function index()
     {
         $trips = Trip::all();
@@ -17,5 +21,12 @@ class TripController extends Controller
     public function show(Trip $trip)
     {
         return view('trips.show', compact('trip'));
+    }
+
+    public function clear()
+    {
+        $this->trip->truncateTable();
+
+        return redirect()->route('import');
     }
 }
