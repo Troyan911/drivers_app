@@ -22,6 +22,7 @@ class DriverController extends Controller
     public function show(Driver $driver)
     {
         $trips = $driver->trips;
+        $driver = $driver->total()->where('driver_id', $driver->id)->first();
 
         return view('drivers.show', compact('driver', 'trips'));
     }

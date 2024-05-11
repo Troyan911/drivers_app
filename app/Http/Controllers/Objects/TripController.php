@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Objects;
 
 use App\Http\Controllers\Controller;
+use App\Models\Driver;
 use App\Models\Trip;
 
 class TripController extends Controller
 {
-    public function __construct(private Trip $trip)
+    public function __construct(private Trip $trip, private Driver $driver)
     {
     }
 
@@ -26,6 +27,7 @@ class TripController extends Controller
     public function clear()
     {
         $this->trip->truncateTable();
+        $this->driver->truncateTable();
 
         return redirect()->route('import');
     }

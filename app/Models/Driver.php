@@ -23,6 +23,14 @@ class Driver extends Model
         return $this->hasMany(Trip::class);
     }
 
+    public function total()
+    {
+        return DB::table('trips')
+            ->selectRaw('driver_id, SUM(minutes) as minutes')
+            ->groupBy('driver_id')
+            ->get();
+    }
+
     public function dataForExport(): array
     {
         $drivers = Driver::withSum('trips', 'minutes')->get();
