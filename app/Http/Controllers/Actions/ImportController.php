@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Actions;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CsvImportRequest;
 use App\Http\Services\CsvServiceContract;
+use Illuminate\Http\RedirectResponse;
 
 class ImportController extends Controller
 {
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function __invoke(CsvImportRequest $request, CsvServiceContract $service)
     {

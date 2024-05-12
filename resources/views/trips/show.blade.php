@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <table id="data-table" class="table table-striped table-bordered" style="width:80%">
+    <table id="data-table" class="table table-striped table-bordered">
         <thead>
         <tr>
             <th scope="col">trip id</th>

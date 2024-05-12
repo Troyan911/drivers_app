@@ -11,6 +11,8 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "datatables.net-bs4": "^2.0.7"
+        "datatables.net-bs4": "^2.0.7",
+        "datatables.net-dt": "^2.0.7",
+        "jquery": "^3.7.1"
     }
 }

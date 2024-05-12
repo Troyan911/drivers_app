@@ -1,10 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <h3>Driver id: {{ $driver->driver_id }}</h3>
-    <h3>Minutes: {{ $driver->minutes }}</h3>
+    <h5>Driver id: {{ $driver->driver_id }}</h5>
+    <h5>Minutes: {{ $driver->minutes }}</h5>
 
-    <table id="data-table" class="table table-striped table-bordered" style="width:80%">
+    <table id="data-table" class="table table-striped table-bordered">
         <thead>
         <tr>
             <th scope="col">trip id</th>

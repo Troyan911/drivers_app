@@ -7,16 +7,15 @@ use App\Models\Driver;
 
 class DriverController extends Controller
 {
+    public function __construct(private Driver $driver)
+    {
+    }
+
     public function index()
     {
-        $drivers = Driver::withSum('trips', 'minutes')->get();
+        $drivers = $this->driver->total();
 
-        $data = [];
-        foreach ($drivers as $driver) {
-            $data[$driver->getAttribute('id')] = $driver->getAttribute('trips_sum_minutes');
-        }
-
-        return view('drivers.index', compact('data'));
+        return view('drivers.index', compact('drivers'));
     }
 
     public function show(Driver $driver)

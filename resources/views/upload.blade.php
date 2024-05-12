@@ -10,11 +10,17 @@
         <li>dropoff</li>
     </ul>
     <br>
-    <form action="{{ route('import.csv') }}" method="POST" enctype="multipart/form-data">
+    <form id="import" action="{{ route('import.csv') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <br>
-        <input type="file" name="csv_file">
-        <button type="submit">Import CSV</button>
+        <ul class="import-item-list">
+            <li class="import-controls">
+                <input id="file" type="file" name="csv_file">
+            </li>
+            <li class="import-controls">
+                <button id="submit" type="submit">Import CSV</button>
+            </li>
+        </ul>
     </form>
 @endsection
 
