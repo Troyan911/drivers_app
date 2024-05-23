@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Objects;
 
 use App\Http\Controllers\Controller;
-use App\Models\Driver;
 use App\Models\Trip;
+use Illuminate\Support\Facades\DB;
 
 class TripController extends Controller
 {
-    public function __construct(private Trip $trip, private Driver $driver)
-    {
-    }
-
     public function index()
     {
         $trips = Trip::all();
@@ -26,8 +22,8 @@ class TripController extends Controller
 
     public function clear()
     {
-        $this->trip->truncateTable();
-        $this->driver->truncateTable();
+        DB::table('trips')->truncate();
+        DB::table('drivers')->truncate();
 
         return redirect()->route('import');
     }

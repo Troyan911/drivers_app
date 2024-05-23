@@ -17,7 +17,7 @@
             <td>{{$trip->driver_id}}</td>
             <td>{{$trip->pickup}}</td>
             <td>{{$trip->dropoff}}</td>
-            <td>{{$trip->minutes}}</td>
+            <td>{{round((strtotime($trip->dropoff) - strtotime($trip->pickup))/60, 3)}}</td>
         </tr>
         </tbody>
     </table>

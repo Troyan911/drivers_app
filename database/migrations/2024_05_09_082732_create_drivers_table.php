@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->float('minutes', 8, 3);
         });
     }
 

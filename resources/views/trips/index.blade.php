@@ -19,7 +19,7 @@
                 <td><a href="{{route('drivers.show', $trip->driver_id)}}">{{$trip->driver_id}}</a></td>
                 <td>{{$trip->pickup}}</td>
                 <td>{{$trip->dropoff}}</td>
-                <td>{{$trip->minutes}}</td>
+                <td>{{round((strtotime($trip->dropoff) - strtotime($trip->pickup))/60, 3)}}</td>
             </tr>
         @endforeach
         </tbody>
