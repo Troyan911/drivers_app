@@ -12,7 +12,7 @@
 
         @foreach($drivers as $driver)
             <tr>
-                <td><a href="{{route('drivers.show', $driver->driver_id)}}">{{$driver->driver_id}}</a></td>
+                <td><a href="{{route('drivers.show', $driver->id)}}">{{$driver->id}}</a></td>
                 <td>{{$driver->minutes}}</td>
             </tr>
         @endforeach

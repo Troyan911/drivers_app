@@ -14,6 +14,7 @@ class Driver extends Model
 
     protected $fillable = [
         'id',
+        'minutes',
     ];
 
     public $timestamps = false;
@@ -23,44 +24,31 @@ class Driver extends Model
         return $this->hasMany(Trip::class);
     }
 
-    public function total()
+    public static function dataForExport(): array
     {
-        return DB::table('trips')
-            ->selectRaw('driver_id, SUM(minutes) as minutes')
-            ->groupBy('driver_id')
-            ->get();
-    }
-
-    public function dataForExport(): array
-    {
-        $drivers = Driver::withSum('trips', 'minutes')->get();
+        $drivers = Driver::all();
 
         $data[] = ['driver_id', 'total_minutes_with_passenger'];
         foreach ($drivers as $driver) {
             $data[] = [
-                $driver->getAttribute('id'),
-                $driver->getAttribute('trips_sum_minutes'),
+                $driver->id,
+                $driver->minutes,
             ];
         }
 
         return $data;
     }
 
-    public function createDrivers($drivers): void
+    public static function createDrivers($drivers): void
     {
         try {
-            $this->truncateTable();
-            foreach ($drivers as $driver) {
-                $this::create(['id' => $driver]);
+            DB::table('drivers')->truncate();
+            foreach ($drivers as $driver => $time) {
+                static::create(['id' => $driver, 'minutes' => $time]);
             }
         } catch (Exception $e) {
             echo $e->getMessage();
             exit;
         }
-    }
-
-    public function truncateTable(): void
-    {
-        DB::table($this->getTable())->truncate();
     }
 }

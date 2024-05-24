@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h5>Driver id: {{ $driver->driver_id }}</h5>
+    <h5>Driver id: {{ $driver->id }}</h5>
     <h5>Minutes: {{ $driver->minutes }}</h5>
 
     <table id="data-table" class="table table-striped table-bordered">
@@ -21,7 +21,7 @@
                 <td>{{$trip->driver_id}}</td>
                 <td>{{$trip->pickup}}</td>
                 <td>{{$trip->dropoff}}</td>
-                <td>{{round((strtotime($trip->dropoff) - strtotime($trip->pickup))/60, 2)}}</td>
+                <td>{{round((strtotime($trip->dropoff) - strtotime($trip->pickup))/60, 3)}}</td>
             </tr>
         @endforeach
         </tbody>

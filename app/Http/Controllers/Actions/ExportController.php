@@ -12,9 +12,9 @@ class ExportController extends Controller
     /**
      * @return StreamedResponse
      */
-    public function __invoke(Driver $driver, CsvServiceContract $service)
+    public function __invoke(CsvServiceContract $service)
     {
-        $data = $driver->dataForExport();
+        $data = Driver::dataForExport();
 
         return $service->exportCsv($data);
     }
