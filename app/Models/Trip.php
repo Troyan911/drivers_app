@@ -17,8 +17,6 @@ class Trip extends Model
         'driver_id',
         'pickup',
         'dropoff',
-        'created_at',
-        'updated_at',
     ];
 
     public $timestamps = false;
@@ -28,21 +26,17 @@ class Trip extends Model
         return $this->belongsTo(Driver::class);
     }
 
-    public function createTrips($records): void
+    public static function createTrips($rows): void
     {
         try {
-            $this->truncateTable();
-            foreach ($records as $record) {
-                $this::create($record);
+            DB::table('trips')->truncate();
+
+            foreach ($rows as $row) {
+                static::create($row);
             }
         } catch (Exception $e) {
             echo $e->getMessage();
             exit;
         }
-    }
-
-    public function truncateTable(): void
-    {
-        DB::table($this->getTable())->truncate();
     }
 }

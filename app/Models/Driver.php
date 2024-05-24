@@ -24,7 +24,7 @@ class Driver extends Model
         return $this->hasMany(Trip::class);
     }
 
-    public function dataForExport(): array
+    public static function dataForExport(): array
     {
         $drivers = Driver::all();
 
@@ -39,21 +39,16 @@ class Driver extends Model
         return $data;
     }
 
-    public function createDrivers($drivers): void
+    public static function createDrivers($drivers): void
     {
         try {
-            $this->truncateTable();
+            DB::table('drivers')->truncate();
             foreach ($drivers as $driver => $time) {
-                $this::create(['id' => $driver, 'minutes' => $time]);
+                static::create(['id' => $driver, 'minutes' => $time]);
             }
         } catch (Exception $e) {
             echo $e->getMessage();
             exit;
         }
-    }
-
-    public function truncateTable(): void
-    {
-        DB::table($this->getTable())->truncate();
     }
 }

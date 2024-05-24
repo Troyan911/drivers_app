@@ -23,10 +23,6 @@ class CsvService implements CsvServiceContract
      */
     private $filePath = 'drivers.csv';
 
-    public function __construct(public Trip $modelTrip, public Driver $modelDriver)
-    {
-    }
-
     /**
      * @throws Exception
      * @throws UnavailableStream
@@ -34,13 +30,13 @@ class CsvService implements CsvServiceContract
     public function parseCsv(CsvImportRequest $request): void
     {
         $file = $request->file('csv_file');
+
         $csv = Reader::createFromPath($file->getPathname(), 'r');
         $csv->setHeaderOffset(0);
-        $records = $csv->getRecords();
+        $rows = $csv->getRecords();
 
-        $this->modelTrip->createTrips($records);
-
-        $this->modelDriver->createDrivers($this->calcDriversTime());
+        Trip::createTrips($rows);
+        Driver::createDrivers($this->calcDriversTime());
     }
 
     /**
